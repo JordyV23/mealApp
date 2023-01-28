@@ -9,7 +9,7 @@ import { Text } from 'vue';
     />
 
     <div class="flex justify-center gap-1 mt-2">
-      <router-link to="/" v-for="letter of letters.split('')">
+      <router-link :to="{name:'byLetter',params:{letter}}" v-for="letter of letters.split('')" :key="letter">
         {{ letter }}</router-link
       >
     </div>
@@ -17,9 +17,16 @@ import { Text } from 'vue';
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed,onMounted } from "vue";
+import axiosClient from "../axiosClient";
 import store from "../store";
 
-const meals = computed(() => store.state.meals);
+
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+onMounted(async ()=>{
+  const response = await axiosClient.get('/list.php?i=list')
+  console.log(response.data)
+  
+})
 </script>
