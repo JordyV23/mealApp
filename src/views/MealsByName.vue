@@ -10,45 +10,18 @@
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 p-8">
-    <div
-      v-for="meal of meals"
-      :key="meal.idMeal"
-      class="bg-white shadow rounded-xl"
-    >
-      <router-link :to="{name:'mealDetails', params:{id:meal.idMeal}}">
-        <img
-          :src="meal.strMealThumb"
-          :alt="meal.strMeal"
-          class="rounded-t-2xl w-full h-48 object-cover"
-        />
-      </router-link>
-      <div class="p-3">
-        <h3 class="font-bold">{{ meal.strMeal }}</h3>
-        <p class="mb-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur
-          voluptates ex, laudantium possimus, consectetur est sed molestiae ea
-          explicabo quam cupiditate et voluptate, excepturi unde eius eveniet
-          facilis officiis repudiandae!
-        </p>
-        <div class="flex items-center justify-between">
-          <a
-            :href="meal.strYoutube"
-            target="_blank"
-            class="px-3 py-2 rounded border-red-600 bg-red-500 text-white hover:bg-red-600 transition-colors"
-            >Youtube</a
-          >
-        </div>
-      </div>
-    </div>
+    <MealItem v-for="meal of meals" :key="meal.idMeal" :meal="meal" />
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
-import {useRoute} from "vue-router";
+import { useRoute } from "vue-router";
+import YouTubeButton from "../components/YouTubeButton.vue";
+import MealItem from "../components/MealItem.vue";
 import store from "../store";
 
-const route = useRoute()
+const route = useRoute();
 
 const keyword = ref("");
 
@@ -58,10 +31,10 @@ function searchMeals() {
   store.dispatch("searchMeals", keyword.value);
 }
 
-onMounted(()=> {
-  keyword.value = route.params.name
-  if(keyword.value){
+onMounted(() => {
+  keyword.value = route.params.name;
+  if (keyword.value) {
     searchMeals();
   }
-})
+});
 </script>
