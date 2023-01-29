@@ -3,12 +3,6 @@ import { Text } from 'vue';
 <template>
   <div class="flex flex-col p-8">
 
-
-    <div class="flex justify-center gap-1 mt-2">
-      <router-link :to="{name:'byLetter',params:{letter}}" v-for="letter of letters.split('')" :key="letter">
-        {{ letter }}</router-link
-      >
-    </div>
   </div>
 </template>
 
@@ -18,7 +12,7 @@ import axiosClient from "../axiosClient";
 import store from "../store";
 
 
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
 const ingredients = ref([])
 
 onMounted(async ()=>{
