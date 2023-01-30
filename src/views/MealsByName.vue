@@ -17,7 +17,6 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { useRoute } from "vue-router";
-import YouTubeButton from "../components/YouTubeButton.vue";
 import MealItem from "../components/MealItem.vue";
 import store from "../store";
 
@@ -28,7 +27,12 @@ const keyword = ref("");
 const meals = computed(() => store.state.searchedMeals);
 
 function searchMeals() {
-  store.dispatch("searchMeals", keyword.value);
+  if( keyword.value){
+    store.dispatch("searchMeals", keyword.value);
+  } else {
+    store.dispatch("searchMeals", []);
+  }
+  
 }
 
 onMounted(() => {
